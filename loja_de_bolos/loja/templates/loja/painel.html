@@ -1,0 +1,70 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Painel Administrativo</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Adicionar Produto</h5>
+                    <a href="{% url 'produto_novo' %}" class="btn btn-primary">Adicionar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Ver Vendas</h5>
+                    <a href="{% url 'ver_vendas' %}" class="btn btn-primary">Ver</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Ver Gráficos de Produtos</h5>
+                    <a href="{% url 'ver_graficos' %}" class="btn btn-primary">Ver</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Gerenciar Outros Produtos</h5>
+                    <a href="{% url 'gerenciar_outros_produtos' %}" class="btn btn-primary">Gerenciar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="mb-4">Produtos</h3>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.descricao }}</td>
+                <td>R$ {{ produto.preco }}</td>
+                <td>{{ produto.estoque }}</td>
+                <td>
+                    <a href="{% url 'produto_editar' produto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'produto_excluir' produto.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

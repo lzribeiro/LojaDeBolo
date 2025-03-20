@@ -1,0 +1,21 @@
+{% extends 'loja/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="produto-detalhes">
+    <img src="{% static 'imagens/bolos.jpeg' %}" alt="{{ produto.nome }}">
+    <h1>{{ produto.nome }}</h1>
+    <p>{{ produto.descricao }}</p>
+    <p>R$ {{ produto.preco }}</p>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <a href="{% url 'comprar_produto' produto.id %}" class="btn btn-success">Comprar</a>
+    </form>
+    <h2>Opções de Parcelamento</h2>
+    <ul>
+        <li>3x de R$ {{ produto.preco|divisibleby:3 }}</li>
+        <li>6x de R$ {{ produto.preco|divisibleby:6 }}</li>
+        <li>12x de R$ {{ produto.preco|divisibleby:12 }}</li>
+    </ul>
+</div>
+{% endblock %}

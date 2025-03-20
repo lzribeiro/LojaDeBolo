@@ -1,0 +1,30 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Vendas</h2>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Data</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.produto.nome }}</td>
+                <td>{{ pedido.quantidade }}</td>
+                <td>{{ pedido.data_pedido|date:"d/m/Y H:i:s" }}</td>
+                <td>R$ {{ pedido.total|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

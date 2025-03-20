@@ -1,0 +1,13 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<h2>Editar Produto: {{ produto.nome }}</h2>
+<form method="post" enctype="multipart/form-data"> <!-- Adicione enctype para suportar upload de arquivos -->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="id_imagens">Imagens:</label>
+    {{ form.imagens }} <!-- Campo de seleção de imagens -->
+    <button type="submit">Salvar</button>
+</form>
+<a href="{% url 'painel' %}">Cancelar</a>
+{% endblock %}

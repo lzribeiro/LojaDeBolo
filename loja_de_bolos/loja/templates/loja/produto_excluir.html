@@ -1,0 +1,9 @@
+{% extends 'loja/base.html' %}
+{% block content %}
+<h2>Excluir Produto</h2>
+<p>Tem certeza de que deseja excluir o produto "{{ produto.nome }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar Exclusão</button>
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Gráficos de Produtos</h2>
+    <div class="card">
+        <div class="card-body">
+            <canvas id="produtosChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('produtosChart').getContext('2d');
+    var produtosChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for produto in produtos %}'{{ produto.nome }}',{% endfor %}],
+            datasets: [{
+                label: 'Estoque de Produtos',
+                data: [{% for produto in produtos %}{{ produto.estoque }},{% endfor %}],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Adicionar Produto</h2>
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, forneça um nome.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="form-control" rows="4" required></textarea>
+            <div class="invalid-feedback">
+                Por favor, forneça uma descrição.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" name="preco" class="form-control" step="0.01" required>
+            <div class="invalid-feedback">
+                Por favor, forneça um preço válido.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="estoque">Estoque:</label>
+            <input type="number" id="estoque" name="estoque" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, forneça a quantidade em estoque.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="imagens">Imagens:</label>
+            <input type="file" id="imagens" name="imagens" class="form-control-file" accept="image/*" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

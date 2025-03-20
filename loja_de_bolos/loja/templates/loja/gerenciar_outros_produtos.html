@@ -1,0 +1,91 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Gerenciar Outros Produtos</h2>
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, forneça um nome.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="form-control" rows="4" required></textarea>
+            <div class="invalid-feedback">
+                Por favor, forneça uma descrição.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" name="preco" class="form-control" step="0.01" required>
+            <div class="invalid-feedback">
+                Por favor, forneça um preço válido.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="estoque">Estoque:</label>
+            <input type="number" id="estoque" name="estoque" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, forneça a quantidade em estoque.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="imagens">Imagens:</label>
+            <input type="file" id="imagens" name="imagens" class="form-control-file" accept="image/*" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+    </form>
+
+    <h3 class="text-center my-4">Lista de Outros Produtos</h3>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Descrição</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.id }}</td>
+                <td>{{ produto.nome }}</td>
+                <td>R$ {{ produto.preco|floatformat:2 }}</td>
+                <td>{{ produto.descricao }}</td>
+                <td>{{ produto.estoque }}</td>
+                <td>
+                    <a href="{% url 'produto_editar' produto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'produto_excluir' produto.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

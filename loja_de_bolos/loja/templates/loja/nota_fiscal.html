@@ -1,0 +1,23 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Nota Fiscal</h2>
+                    <p class="card-text">Produto: {{ pedido.produto.nome }}</p>
+                    <p class="card-text">Quantidade: {{ pedido.quantidade }}</p>
+                    <p class="card-text">Nome do Cliente: {{ pedido.nome_cliente }}</p>
+                    <p class="card-text">CPF: {{ pedido.cpf }}</p>
+                    <p class="card-text">Telefone: {{ pedido.telefone }}</p>
+                    <p class="card-text">Data do Pedido: {{ pedido.data_pedido|date:"d/m/Y H:i:s" }}</p>
+                    <p class="card-text">Total: R$ {{ pedido.total }}</p>
+                    <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
